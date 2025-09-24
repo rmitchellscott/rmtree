@@ -13,7 +13,7 @@ The easiest way to install is using the installation script that automatically d
 wget -qO- https://github.com/rmitchellscott/rmtree/raw/main/install.sh | bash
 ```
 
-## Manual Installation
+### Manual Installation
 
 Download the correct binary for your device:
 
