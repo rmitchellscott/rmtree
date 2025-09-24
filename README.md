@@ -1,6 +1,6 @@
 # rmtree
 
-A tree-style display tool for reMarkable tablet filesystem, showing the hierarchical structure of documents and folders.
+A tree-style display tool for the reMarkable tablet's document filesystem, showing the hierarchical structure of documents and folders.
 
 ## Installation
 
