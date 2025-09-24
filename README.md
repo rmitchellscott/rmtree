@@ -10,7 +10,7 @@ A tree-style display tool for the reMarkable tablet's document filesystem, showi
 The easiest way to install is using the installation script that automatically detects your device architecture:
 
 ```bash
-wget -qO- https://github.com/rmitchellscott/rm-tree/raw/main/install.sh | bash
+wget -qO- https://github.com/rmitchellscott/rmtree/raw/main/install.sh | bash
 ```
 
 ## Manual Installation
@@ -19,13 +19,13 @@ Download the correct binary for your device:
 
 ```bash
 # For reMarkable 1/2 (ARMv7):
-wget https://github.com/rmitchellscott/rm-tree/releases/latest/download/rmtree-armv7.tar.gz
+wget https://github.com/rmitchellscott/rmtree/releases/latest/download/rmtree-armv7.tar.gz
 tar -xzf rmtree-armv7.tar.gz
 mv rmtree-armv7 rmtree
 chmod +x rmtree
 
 # For reMarkable Paper Pro & Paper Pro Move (ARM64):
-wget https://github.com/rmitchellscott/rm-tree/releases/latest/download/rmtree-aarch64.tar.gz
+wget https://github.com/rmitchellscott/rmtree/releases/latest/download/rmtree-aarch64.tar.gz
 tar -xzf rmtree-aarch64.tar.gz
 mv rmtree-aarch64 rmtree
 chmod +x rmtree
