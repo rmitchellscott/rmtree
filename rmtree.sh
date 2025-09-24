@@ -184,16 +184,73 @@ print_item() {
     fi
 }
 
+# Function to print trash items (similar to print_item but with normal styling)
+print_trash_item() {
+    local uuid="$1"
+    local prefix="$2"
+    local is_last="$3"
+    local depth="$4"
+
+    [ "$depth" -gt 50 ] && return
+    [ -z "$uuid" ] && return
+    [ -z "${items[$uuid]}" ] && return
+
+    # Determine connector
+    local connector="├── "
+    [ "$is_last" = "1" ] && connector="└── "
+
+    # Determine icon, color, type label, and UUID display
+    local icon="" color="" type_label="" uuid_display=""
+
+    if [ "${types[$uuid]}" = "CollectionType" ]; then
+        [ -n "$SHOW_ICONS" ] && icon="📁 "
+        color="$COLOR_FOLDER"
+        # No type label or UUID for folders
+    else
+        case "${doctypes[$uuid]}" in
+            pdf)
+                [ -n "$SHOW_ICONS" ] && icon="📕 "
+                color="$COLOR_PDF"
+                [ -n "$SHOW_LABELS" ] && type_label=" (pdf)"
+                ;;
+            epub)
+                [ -n "$SHOW_ICONS" ] && icon="📗 "
+                color="$COLOR_EPUB"
+                [ -n "$SHOW_LABELS" ] && type_label=" (epub)"
+                ;;
+            *)
+                [ -n "$SHOW_ICONS" ] && icon="📓 "
+                # No color for notebooks (default terminal color)
+                [ -n "$SHOW_LABELS" ] && type_label=" (notebook)"
+                ;;
+        esac
+        # Add UUID for documents (not folders)
+        [ -n "$SHOW_UUID" ] && uuid_display=" [$uuid]"
+    fi
+
+    echo -e "${prefix}${connector}${color}${icon}${names[$uuid]}${COLOR_RESET}${type_label}${uuid_display}"
+
+    # Trash items don't have children, so no recursion needed
+}
+
 # echo "reMarkable Filesystem"
 # echo "===================="
 echo "."
 
-# Find root items and create sort list
+# Find root items and trash items
 root_list=""
+trash_list=""
+
 for uuid in "${!items[@]}"; do
     parent="${parents[$uuid]}"
-    if [ -z "$parent" ] || [ "$parent" = "trash" ] || [ -z "${items[$parent]}" ]; then
-        # Create sort key
+
+    if [ "$parent" = "trash" ]; then
+        # Trash items
+        sort_key="1"
+        [ "${types[$uuid]}" = "CollectionType" ] && sort_key="0"
+        trash_list="${trash_list}${sort_key}|${names[$uuid]}|${uuid}\n"
+    elif [ -z "$parent" ] || [ -z "${items[$parent]}" ]; then
+        # Root items
         sort_key="1"
         [ "${types[$uuid]}" = "CollectionType" ] && sort_key="0"
         root_list="${root_list}${sort_key}|${names[$uuid]}|${uuid}\n"
@@ -201,6 +258,7 @@ for uuid in "${!items[@]}"; do
 done
 
 # Sort and print root items
+has_roots=""
 if [ -n "$root_list" ]; then
     sorted_roots=$(echo -e "${root_list}" | sort | cut -d'|' -f3)
 
@@ -208,6 +266,7 @@ if [ -n "$root_list" ]; then
     set -- $sorted_roots
     total_roots=$#
     current_root=0
+    has_roots="1"
 
     # Process each root
     for uuid in "$@"; do
@@ -215,8 +274,41 @@ if [ -n "$root_list" ]; then
         ((current_root++))
 
         is_last="0"
-        [ $current_root -eq $total_roots ] && is_last="1"
+        # Last root item only if no trash items
+        [ $current_root -eq $total_roots ] && [ -z "$trash_list" ] && is_last="1"
 
         print_item "$uuid" "" "$is_last" 0
+    done
+fi
+
+# Add virtual Trash folder if there are trash items
+if [ -n "$trash_list" ]; then
+    sorted_trash=$(echo -e "${trash_list}" | sort | cut -d'|' -f3)
+
+    # Print Trash folder header
+    connector="└── "
+    [ -n "$has_roots" ] && connector="└── "
+
+    # Trash folder styling
+    trash_icon=""
+    [ -n "$SHOW_ICONS" ] && trash_icon="📁 "
+
+    echo -e "${connector}${COLOR_FOLDER}${trash_icon}Trash${COLOR_RESET}"
+
+    # Convert trash items to positional parameters
+    set -- $sorted_trash
+    total_trash=$#
+    current_trash=0
+
+    # Process each trash item
+    for uuid in "$@"; do
+        [ -z "$uuid" ] && continue
+        ((current_trash++))
+
+        is_last="0"
+        [ $current_trash -eq $total_trash ] && is_last="1"
+
+        # Override colors for trash items and print
+        print_trash_item "$uuid" "    " "$is_last" 1
     done
 fi
