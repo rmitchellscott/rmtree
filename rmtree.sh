@@ -240,9 +240,18 @@ echo "."
 # Find root items and trash items
 root_list=""
 trash_list=""
+dir_count=0
+file_count=0
 
 for uuid in "${!items[@]}"; do
     parent="${parents[$uuid]}"
+
+    # Count all items (including nested ones)
+    if [ "${types[$uuid]}" = "CollectionType" ]; then
+        ((dir_count++))
+    else
+        ((file_count++))
+    fi
 
     if [ "$parent" = "trash" ]; then
         # Trash items
@@ -312,3 +321,25 @@ if [ -n "$trash_list" ]; then
         print_trash_item "$uuid" "    " "$is_last" 1
     done
 fi
+
+# Add Trash folder to directory count if we have trash items
+[ -n "$trash_list" ] && ((dir_count++))
+
+# Print summary
+echo ""
+
+# Handle singular/plural for directories
+if [ $dir_count -eq 1 ]; then
+    dir_text="1 directory"
+else
+    dir_text="$dir_count directories"
+fi
+
+# Handle singular/plural for files
+if [ $file_count -eq 1 ]; then
+    file_text="1 file"
+else
+    file_text="$file_count files"
+fi
+
+echo "$dir_text, $file_text"
