@@ -2,13 +2,26 @@
 
 A tree-style display tool for reMarkable tablet filesystem, showing the hierarchical structure of documents and folders.
 
+## Installation
+
+On your reMarkable tablet:
+
+```bash
+# Download the script
+wget https://raw.githubusercontent.com/rmitchellscott/rmtree/refs/heads/main/rmtree.sh
+
+# Make it executable
+chmod +x rmtree.sh
+```
+
 ## Usage
 
 ```bash
 ./rmtree.sh [path] [options]
-```
-
+``` 
 **Default path**: `/home/root/.local/share/remarkable/xochitl`
+
+The script will take several seconds to run.
 
 ## Options
 
