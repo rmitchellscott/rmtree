@@ -2,26 +2,42 @@
 
 A tree-style display tool for the reMarkable tablet's document filesystem, showing the hierarchical structure of documents and folders.
 
-## Installation
+### Automatic Installation (Recommended)
 
-On your reMarkable tablet:
+> [!CAUTION]
+> Piping code from the internet directly into `bash` can be dangerous. Make sure you trust the source and know what it will do to your system.
+
+The easiest way to install is using the installation script that automatically detects your device architecture:
 
 ```bash
-# Download the script
-wget https://raw.githubusercontent.com/rmitchellscott/rmtree/refs/heads/main/rmtree.sh
+wget -qO- https://github.com/rmitchellscott/rm-tree/raw/main/install.sh | bash
+```
 
-# Make it executable
-chmod +x rmtree.sh
+## Manual Installation
+
+Download the correct binary for your device:
+
+```bash
+# For reMarkable 1/2 (ARMv7):
+wget https://github.com/rmitchellscott/rm-tree/releases/latest/download/rmtree-armv7.tar.gz
+tar -xzf rmtree-armv7.tar.gz
+mv rmtree-armv7 rmtree
+chmod +x rmtree
+
+# For reMarkable Paper Pro & Paper Pro Move (ARM64):
+wget https://github.com/rmitchellscott/rm-tree/releases/latest/download/rmtree-aarch64.tar.gz
+tar -xzf rmtree-aarch64.tar.gz
+mv rmtree-aarch64 rmtree
+chmod +x rmtree
 ```
 
 ## Usage
 
 ```bash
-./rmtree.sh [path] [options]
-``` 
-**Default path**: `/home/root/.local/share/remarkable/xochitl`
+./rmtree [path] [options]
+```
 
-The script will take several seconds to run.
+**Default path**: `/home/root/.local/share/remarkable/xochitl`
 
 ## Options
 

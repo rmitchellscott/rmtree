@@ -1,0 +1,42 @@
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: armv7
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - arm
+    goarm:
+      - 7
+    binary: rmtree-armv7
+  - id: aarch64
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - arm64
+    binary: rmtree-aarch64
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .Binary }}"
+    files:
+      - none*
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
