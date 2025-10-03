@@ -41,11 +41,11 @@ chmod +x rmtree
 
 ## Options
 
-- `--icons` - Show emoji icons (📁 📕 📗 📓)
-- `--labels` - Show document type labels (pdf), (epub), (notebook)
-- `--uuid` - Show document UUIDs in square brackets (documents only, not folders)
-- `--no-color` - Disable colored output
-- `--version` - Show version information
+- `--icons`, `-i` - Show emoji icons (📁 📕 📗 📓)
+- `--labels`, `-l` - Show document type labels (pdf), (epub), (notebook)
+- `--uuid`, `-u` - Show document UUIDs in square brackets (documents only, not folders)
+- `--no-color`, `-n` - Disable colored output
+- `--version`, `-v` - Show version information
 
 ## Examples
 

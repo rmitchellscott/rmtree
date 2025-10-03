@@ -2,13 +2,14 @@ package main
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 	"sync"
+
+	pflag "github.com/spf13/pflag"
 )
 
 var version = "dev"
@@ -70,20 +71,20 @@ func parseArgs() Config {
 		UseColor: true,
 	}
 
-	flag.BoolVar(&config.ShowIcons, "icons", false, "Show emoji icons")
-	flag.BoolVar(&config.ShowLabels, "labels", false, "Show document type labels")
-	flag.BoolVar(&config.ShowUUID, "uuid", false, "Show document UUIDs")
-	noColor := flag.Bool("no-color", false, "Disable colored output")
-	showVersion := flag.Bool("version", false, "Show version information")
-	flag.Parse()
+	pflag.BoolVarP(&config.ShowIcons, "icons", "i", false, "Show emoji icons")
+	pflag.BoolVarP(&config.ShowLabels, "labels", "l", false, "Show document type labels")
+	pflag.BoolVarP(&config.ShowUUID, "uuid", "u", false, "Show document UUIDs")
+	noColor := pflag.BoolP("no-color", "n", false, "Disable colored output")
+	showVersion := pflag.BoolP("version", "v", false, "Show version information")
+	pflag.Parse()
 
 	if *showVersion {
 		fmt.Println("rmtree version", version)
 		os.Exit(0)
 	}
 
-	if flag.NArg() > 0 {
-		config.Path = flag.Arg(0)
+	if pflag.NArg() > 0 {
+		config.Path = pflag.Arg(0)
 	}
 
 	if *noColor {
