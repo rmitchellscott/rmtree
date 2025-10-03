@@ -11,6 +11,8 @@ import (
 	"sync"
 )
 
+var version = "dev"
+
 type Metadata struct {
 	VisibleName string `json:"visibleName"`
 	Type        string `json:"type"`
@@ -72,7 +74,13 @@ func parseArgs() Config {
 	flag.BoolVar(&config.ShowLabels, "labels", false, "Show document type labels")
 	flag.BoolVar(&config.ShowUUID, "uuid", false, "Show document UUIDs")
 	noColor := flag.Bool("no-color", false, "Disable colored output")
+	showVersion := flag.Bool("version", false, "Show version information")
 	flag.Parse()
+
+	if *showVersion {
+		fmt.Println("rmtree version", version)
+		os.Exit(0)
+	}
 
 	if flag.NArg() > 0 {
 		config.Path = flag.Arg(0)

@@ -41,10 +41,11 @@ chmod +x rmtree
 
 ## Options
 
-- `-icons` - Show emoji icons (📁 📕 📗 📓)
-- `-labels` - Show document type labels (pdf), (epub), (notebook)
-- `-uuid` - Show document UUIDs in square brackets (documents only, not folders)
-- `-no-color` - Disable colored output
+- `--icons` - Show emoji icons (📁 📕 📗 📓)
+- `--labels` - Show document type labels (pdf), (epub), (notebook)
+- `--uuid` - Show document UUIDs in square brackets (documents only, not folders)
+- `--no-color` - Disable colored output
+- `--version` - Show version information
 
 ## Examples
 
@@ -58,7 +59,7 @@ chmod +x rmtree
 └── To Do
 ```
 
-**With labels** (`-labels`):
+**With labels** (`--labels`):
 ```
 .
 ├── Books
@@ -68,7 +69,7 @@ chmod +x rmtree
 └── To Do (notebook)
 ```
 
-**With icons and labels** (`-icons -labels`):
+**With icons and labels** (`--icons --labels`):
 ```
 .
 ├── 📁 Books
@@ -78,7 +79,7 @@ chmod +x rmtree
 └── 📓 To Do (notebook)
 ```
 
-**With UUIDs** (`-uuid`):
+**With UUIDs** (`--uuid`):
 ```
 .
 ├── Books

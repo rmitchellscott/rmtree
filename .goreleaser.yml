@@ -13,6 +13,8 @@ builds:
     goarm:
       - 7
     binary: rmtree-armv7
+    ldflags:
+      - -s -w -X main.version={{.Version}}
   - id: aarch64
     env:
       - CGO_ENABLED=0
@@ -21,6 +23,8 @@ builds:
     goarch:
       - arm64
     binary: rmtree-aarch64
+    ldflags:
+      - -s -w -X main.version={{.Version}}
 
 archives:
   - format: tar.gz
