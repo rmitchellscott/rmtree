@@ -13,6 +13,8 @@ builds:
     goarm:
       - 7
     binary: rmtree-armv7
+    flags:
+      - -trimpath
     ldflags:
       - -s -w -X main.version={{.Version}}
   - id: aarch64
@@ -23,8 +25,15 @@ builds:
     goarch:
       - arm64
     binary: rmtree-aarch64
+    flags:
+      - -trimpath
     ldflags:
       - -s -w -X main.version={{.Version}}
+
+upx:
+  - enabled: true
+    compress: best
+    lzma: true
 
 archives:
   - format: tar.gz
