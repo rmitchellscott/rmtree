@@ -6,7 +6,11 @@
 
 A tree-style display tool for the reMarkable tablet's document filesystem, showing the hierarchical structure of documents and folders.
 
-### Automatic Installation (Recommended)
+### Installation via [Vellum package manager](https://github.com/vellum-dev/vellum)
+
+`vellum install rmtree`
+
+### Automatic Installation
 
 > [!CAUTION]
 > Piping code from the internet directly into `bash` can be dangerous. Make sure you trust the source and know what it will do to your system.
