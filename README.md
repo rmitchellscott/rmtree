@@ -3,6 +3,8 @@
 [![rm2](https://img.shields.io/badge/rM2-supported-green)](https://remarkable.com/store/remarkable-2)
 [![rmpp](https://img.shields.io/badge/rMPP-supported-green)](https://remarkable.com/products/remarkable-paper/pro)
 [![rmppm](https://img.shields.io/badge/rMPPM-supported-green)](https://remarkable.com/products/remarkable-paper/pro-move)
+[![vellum](https://img.shields.io/badge/vellum-rmtree-purple)](https://vellum.delivery/#/package/rmtree)
+
 
 A tree-style display tool for the reMarkable tablet's document filesystem, showing the hierarchical structure of documents and folders.
 
