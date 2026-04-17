@@ -98,3 +98,8 @@ chmod +x rmtree
 │   └── Calendar-2025 [67f60935-7978-4fe4-b234-64b70ed17c3e]
 └── To Do [d1a44483-3023-4b16-b677-ea75211252ca]
 ```
+
+## License
+Copyright (C) 2025 Mitchell Scott
+
+Licensed under the GNU General Public License v3.0.
